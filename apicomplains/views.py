@@ -8,14 +8,10 @@ from Complains.models import Complains, Response, ImageComplains, ImageComplains
 from .serializers import *
 from rest_framework import mixins, viewsets
 from django.core.files.storage import FileSystemStorage
+from django.db import connection
 
 
 ################################################################
-
-class ImageComplainsViews(viewsets.ModelViewSet):
-    queryset = ImageComplains.objects.all()
-    serializer_class = ImageComplainsSerializer
-
 
 @api_view(['GET', 'POST', 'DELETE'])
 def Complains_list(request):
@@ -88,3 +84,80 @@ def Complains_detail(request, pk):
     elif request.method == 'DELETE':
         complains.delete()
         return JsonResponse({'message': 'ٌRoom Type was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ImageComplainsViews(viewsets.ModelViewSet):
+    queryset = ImageComplains.objects.all()
+    serializer_class = ImageComplainsSerializer
+
+
+# class ComplainsViews(viewsets.ModelViewSet):
+#     serializer_class = ComplainsSerializer
+#     queryset = Complains.objects.all()
+
+def getComplainsImages(id):
+
+    sql = " SELECT Complains_Complains.id, Complains_Complains.description, Complains_ImageComplains.image  " \
+          " FROM  Complains_Complains " \
+          " INNER JOIN Complains_ImageComplains on Complains_ImageComplains.complains_id = Complains_Complains.id" \
+          " where Complains_Complains.id =" + str(id)
+
+    complainlist = []
+    complainslistimage = []
+    row = []
+
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        row = cursor.fetchone()
+
+    sqlimages = " SELECT Complains_ImageComplains.image" \
+                " FROM  Complains_ImageComplains" \
+                " where Complains_ImageComplains.complains_id =" + str(id)
+
+    with connection.cursor() as cursor:
+        cursor.execute(sqlimages)
+        rows = cursor.fetchall()
+
+        for rowim in rows:
+            if rowim[0]:
+                imagepath = "media/" + str(rowim[0])
+            else:
+                imagepath = ""
+            roomimage = {
+                'images': imagepath
+            }
+
+            complainslistimage.append(roomimage)
+
+    complain1 = {
+        'id': row[0],
+        'description': row[1],
+        'images': complainslistimage,
+        }
+
+    complainlist.append(complain1)
+    return complainlist
+
+
+class ComplainsViews(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = ComplainsSerializer
+
+    def get_object(self, queryset=None):
+        obj = self.request
+        return obj
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        getData = self.get_object()
+        id = getData.GET['id']
+
+        queryset = getComplainsImages(id)
+        return queryset
+
+
+# class ScheduleListViewSet(viewsets.ModelViewSet):
+#     serializer_class = ScheduleSerializer
+#     queryset = Schedule.objects.all()

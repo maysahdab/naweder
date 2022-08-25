@@ -6,7 +6,6 @@ from django.contrib import admin
 class Complains(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=250, blank=True)
-    image = models.ImageField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -20,6 +19,7 @@ class Complains(models.Model):
 
 class ImageComplains(models.Model):
     image = models.ImageField()
+    # imageText = models.CharField(max_length=250, blank=True)
     complains = models.ForeignKey(Complains, on_delete=models.PROTECT, blank=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -30,7 +30,7 @@ class ImageComplains(models.Model):
 
 
 class ImageComplainsinline(admin.TabularInline):
-    fields = ('image', 'complains',)
+    # fields = ('imageText', 'complains',)
     model = ImageComplains
     extra = 1
 
