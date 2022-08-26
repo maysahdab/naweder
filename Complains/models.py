@@ -20,7 +20,7 @@ class Complains(models.Model):
 class ImageComplains(models.Model):
     image = models.ImageField()
     # imageText = models.CharField(max_length=250, blank=True)
-    complains = models.ForeignKey(Complains, on_delete=models.PROTECT, blank=False)
+    complains = models.ForeignKey(Complains, on_delete=models.CASCADE, blank=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)

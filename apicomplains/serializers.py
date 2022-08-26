@@ -30,7 +30,7 @@ from rest_framework import serializers
 class ImageComplainsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageComplains
-        fields = ('id', 'imageText', 'complains',)
+        fields = ('id', 'image', 'complains',)
         # fields = '__all__'
         depth = 1
 
@@ -65,6 +65,4 @@ class ComplainsSerializer(serializers.Serializer):
 #         model = ImageComplains
 #         fields = ['Complains', 'ComplainId', 'imageText', 'created_at', 'updated_at']
 #         depth = 1
-
-
 
