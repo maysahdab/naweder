@@ -9,8 +9,5 @@ class UserProfile1(models.Model):
     street = models.ForeignKey(Street, on_delete=models.PROTECT)
     guide = models.BooleanField(default=False)
 
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-
-

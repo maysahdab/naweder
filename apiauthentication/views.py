@@ -66,25 +66,10 @@ class ProfileView(generics.RetrieveAPIView):
         return self.request.user
 
 
-# class LogoutAPIView(APIView):
-#     permission_classes = (IsAuthenticated,)
-#
-#     def post(self, request):
-#         try:
-#             refresh_token = request.data["refresh_token"]
-#             token = RefreshToken(refresh_token)
-#             token.blacklist()
-#
-#             # return Response(status=status.HTTP_205_RESET_CONTENT)
-#             response1 = {
-#                 'status': 'success',
-#                 'message': 'token black listed successfully',
-#             }
-#             return Response(response1)
-#         except Exception as e:
-#             # return Response(status=status.HTTP_400_BAD_REQUEST)
-#             response2 = {
-#                 # 'status': 'success',
-#                 'message': 'you are logged out (your refresh_token is black listed)',
-#             }
-#             return Response(response2)
+class UpdateProfileView(generics.UpdateAPIView):
+    """
+        An endpoint for updating password.
+    """
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer

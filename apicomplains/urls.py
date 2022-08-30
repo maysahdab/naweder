@@ -10,14 +10,17 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 # define the router
-router.register(r'complains_images', ImageComplainsViews, basename='complains_images')
-router.register(r'complains', ComplainsViews, basename='complains')
-router.register(r'all_complains', AllComplainsViews, basename='all_complains')
+router.register(r'complains-images', ImageComplainsViews, basename='complains_images')
+router.register(r'complain-get', ComplainsViews, basename='complain_get')
+router.register(r'complains-all', AllComplainsViews, basename='all_complains')
+router.register(r'my-complain', MyComplainsViews, basename='my_complain')
+# router.register(r'my-complain2', MyComplainsViews2, basename='my_complain2')
 
 # specify URL Path for rest_framework
-
 urlpatterns = [
-    path(r'complains_list', views.Complains_list),
-    path(r'complains_specific/<int:pk>', views.Complains_detail),
-    path('api/', include(router.urls)),
+    path('complain-add', views.Complain_add),
+    # path('complains-specific/<int:pk>', views.Complains_detail),
+    path('complain-delete/<int:pk>', views.Complain_delete),
+    path('complain-update/<int:pk>', views.Complain_update),
+    path('', include(router.urls)),
 ]
