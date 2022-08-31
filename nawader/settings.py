@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apicomplains',
     'apiauthentication',
     'apireviewproduct',
+    'apiauction',
     'rest_framework',
 ]
 
