@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework import serializers
 
 from Auction.models import Auction, AuctionStatus
-from Animal.models import Animal
+from Animal.models import Animal, Family, AnimalClass
 from Operation.models import Operation
 
 
@@ -27,7 +27,7 @@ class OperationSerializer(serializers.ModelSerializer):
         fields = ('id', 'animal', 'price',)
 
 
-class ActionSerializer(serializers.ModelSerializer):
+class AuctionSerializer(serializers.ModelSerializer):
     # commenter_name = serializers.CharField(source='usr.username', read_only=True)
     operation = OperationSerializer(read_only=True)
     # street = serializers.CharField(source='usr.username', read_only=True)
@@ -36,4 +36,27 @@ class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Auction
         fields = ('id', 'fromdate', 'todate', 'description', 'descriptionar', 'status', 'operation',)
+
+#############################################################
+
+
+class AnimalFamilySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Family
+        fields = ('id', 'name', 'namear', 'description', 'descriptionar',)
+
+class AnimalClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnimalClass
+        fields = ('id', 'name', 'namear', 'description', 'descriptionar',)
+
+class AnimalSerializer2(serializers.ModelSerializer):
+    family = AnimalFamilySerializer(read_only=True)
+    # animalclass = AnimalClassSerializer(read_only=True)
+
+    class Meta:
+        model = Animal
+        fields = ('id', 'name', 'namear', 'birthdate', 'family', )
+
+###############################################################
 

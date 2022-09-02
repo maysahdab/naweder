@@ -4,6 +4,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
 
+
 class AnimalClass(models.Model):
     name = models.CharField(max_length=50)
     namear = models.CharField(max_length=50)
@@ -30,9 +31,9 @@ class Animals(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name_plural = "Animals"
 
@@ -58,12 +59,9 @@ class AnimalFamily(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-
 class AnimalFamily_Inline(admin.TabularInline):
     model = AnimalFamily
     extra = 1
-
-
 
 class Animal(models.Model):
     family = models.ForeignKey(Family, on_delete=models.PROTECT, null=False)
@@ -73,7 +71,7 @@ class Animal(models.Model):
     isactive = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT,blank=True )
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True)
 
     def __str__(self):
         return self.name
@@ -81,8 +79,8 @@ class Animal(models.Model):
     class Meta:
         verbose_name_plural = "Animal"
 
-    def save(self, *args, **kwargs):
-        user = User.objects.filter(username=get_current_authenticated_user())
-
-        self.user = user[0]
-        super(Animal, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     user = User.objects.filter(username=get_current_authenticated_user())
+    #
+    #     self.user = user[0]
+    #     super(Animal, self).save(*args, **kwargs)

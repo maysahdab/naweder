@@ -10,7 +10,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 # define the router
-router.register(r'complains-images', ImageComplainsViews, basename='complains_images')
+# router.register(r'complains-images', ImageComplainsViews, basename='complains_images')
 router.register(r'complain-get', ComplainsViews, basename='complain_get')
 router.register(r'complains-all', AllComplainsViews, basename='all_complains')
 router.register(r'my-complain', MyComplainsViews, basename='my_complain')

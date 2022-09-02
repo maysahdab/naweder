@@ -324,28 +324,6 @@ class AllComplainsViews(mixins.ListModelMixin, viewsets.GenericViewSet):
         queryset = getAllComplainsWithImages()
         return queryset
 
-# class MyComplainsViews(mixins.ListModelMixin, viewsets.GenericViewSet):
-#     serializer_class = Complains2Serializer
-#     permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
-#     authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
-#
-#     def get_object(self, queryset=None):
-#         obj = self.request
-#         return obj
-#
-#     def get_queryset(self):
-#         """
-#         Optionally restricts the returned purchases to a given user,
-#         by filtering against a `username` query parameter in the URL.
-#         """
-#         # getData = self.get_object()
-#         # # id = getData.GET['id']
-#         #
-#         # queryset = getAllComplainsWithImages()
-#         # return queryset
-#
-#         # return getComplainbyUserid(self.request.user.pk)
-#         return Complains.objects.all().filter(user_id=self.request.user.pk).all()
 
 class MyComplainsViews(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = ComplainsSerializer

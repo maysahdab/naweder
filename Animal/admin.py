@@ -20,7 +20,7 @@ class AnimalClassAdmin(admin.ModelAdmin):
     fields = ( 'name', 'namear', 'description', 'descriptionar',)
 
 class AnimalAdmin(admin.ModelAdmin):
-    fields =('family','name','namear','birthdate','isactive',)
+    # fields =('family','name','namear','birthdate','isactive',)
     def get_queryset(self, request):
 
         qs = super(AnimalAdmin, self).get_queryset(request)
