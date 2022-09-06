@@ -75,6 +75,7 @@ def Complain_add(request):
         return JsonResponse({'message': 'Complain is created successfully!'}, status=status.HTTP_201_CREATED)
     except:
         return JsonResponse({'message': 'Error'}, status=status.HTTP_404_NOT_FOUND)
+
 @api_view(['DELETE'])
 def Complain_delete(request, pk):
     try:
@@ -162,7 +163,6 @@ def getComplainbyid(id):
         cursor.execute(sql)
         row = cursor.fetchone()
 
-
     if row== None:
 
         return complainlist
@@ -193,8 +193,6 @@ def getComplainbyid(id):
         }
 
     complainlist.append(complain1)
-
-
 
     return complainlist
 

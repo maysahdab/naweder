@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Auction',
     'Complains',
     'currencyapp',
+    'Publicity',
     'Ecommerce',
     'News',
     'OfferSale',
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'apiauthentication',
     'apireviewproduct',
     'apiauction',
+    'apipublicity',
     'rest_framework',
 ]
 

@@ -51,7 +51,7 @@ class AnimalClassSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'namear', 'description', 'descriptionar',)
 
 class AnimalSerializer2(serializers.ModelSerializer):
-    family = AnimalFamilySerializer(read_only=True)
+    family = AnimalFamilySerializer(read_only=True, many=True)
     # animalclass = AnimalClassSerializer(read_only=True)
 
     class Meta:

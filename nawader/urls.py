@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/auth/', include('apiauthentication.urls')),
     path('api/review-product/', include('apireviewproduct.urls')),
     path('api/auction/', include('apiauction.urls')),
+    path('api/publicity/', include('apipublicity.urls')),
     # path('accounts/login/home/', admin.site.urls),
     # path('', TemplateView.as_view(template_name='home.html'), name='home'),
     # path('accounts/', include('django.contrib.auth.urls')),
