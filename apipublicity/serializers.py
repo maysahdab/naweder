@@ -36,10 +36,10 @@ class TypePublicitySerializer(serializers.ModelSerializer):
         # fields = '__all__'
         # depth = 1
 
-class ImagePublicitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ImagePublicity
-        fields = ('image',)  # 'id', 'publicity_id',
+# class ImagePublicitySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ImagePublicity
+#         fields = ('image',)  # 'id', 'publicity_id',
 
 
 # class PublicitySerializer(serializers.Serializer):

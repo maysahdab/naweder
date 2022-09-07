@@ -12,7 +12,7 @@ router = routers.DefaultRouter()
 # define the router
 
 router.register(r'review-product-get', ReviewProductViews, basename='reviewproduct_get')
-router.register(r'review-product-all', AllReviewProductViews, basename='all_reviewproduct')
+# router.register(r'review-product-all', AllReviewProductViews, basename='all_reviewproduct')
 
 # specify URL Path for rest_framework
 

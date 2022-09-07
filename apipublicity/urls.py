@@ -8,7 +8,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 # define the router
 router.register(r'get-publicity', PublicityViews, basename='get_publicity')
-router.register(r'get-publicity-images', PublicityimagesViews, basename='get_publicity_images')
+# router.register(r'get-publicity-images', PublicityimagesViews, basename='get_publicity_images')
 # router.register(r'post-publicity', PostPublicityViews, basename='post_publicity')
 
 # specify URL Path for rest_framework

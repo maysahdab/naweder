@@ -19,6 +19,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 # Create your views here.
+from Auction.models import Bids
+from django.db.models import F, Max
 
 
 class AuctionEndTodayViews(viewsets.ReadOnlyModelViewSet):
@@ -28,6 +30,12 @@ class AuctionEndTodayViews(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return Auction.objects.all().filter(todate=date.today()).all()
 
+class LastAddedAuctionViews(generics.ListCreateAPIView):
+    serializer_class = AuctionSerializer  # shu badu yesta3mel la ye2ra
+
+    def get_queryset(self):
+        queryset = Auction.objects.order_by('-id')[:2]
+        return queryset
 
 # class AuctionByIdViews(APIView):
 #     # queryset = Review.objects.all()  # mn ayy table badi jibon
@@ -62,15 +70,6 @@ class AuctionEndTodayViews(viewsets.ReadOnlyModelViewSet):
 #         queryset = Auction.objects.all() #.filter(pk=self.kwargs['post_id'])
 #         return queryset
 
-
-class LastAddedAuctionViews(generics.ListCreateAPIView):
-    serializer_class = AuctionSerializer  # shu badu yesta3mel la ye2ra
-
-    def get_queryset(self):
-        queryset = Auction.objects.order_by('-id')[:2]
-        return queryset
-
-
 class AuctionByIdViews(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = AuctionSerializer
     # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
@@ -88,14 +87,12 @@ class AuctionByIdViews(mixins.ListModelMixin, viewsets.GenericViewSet):
         return queryset
         # return Complains.objects.all().filter(user_id=self.request.user.pk).all()
 
-
 class AnimalViews(viewsets.ReadOnlyModelViewSet):
     # queryset = Review.objects.all()  # mn ayy table badi jibon
     serializer_class = AnimalSerializer2  # shu badu yesta3mel la ye2ra
 
     def get_queryset(self):
         return Animal.objects.all()
-
 
 # @api_view(['GET'])
 # def AuctionByIdViews(request, pk):
@@ -109,3 +106,63 @@ class AnimalViews(viewsets.ReadOnlyModelViewSet):
 #     if request.method == 'GET':
 #         tutorial_serializer = AuctionSerializer
 #         return JsonResponse(tutorial_serializer.data)
+
+class BidsViews(viewsets.ReadOnlyModelViewSet):
+    # queryset = Review.objects.all()  # mn ayy table badi jibon
+    serializer_class = BidsSerializer  # shu badu yesta3mel la ye2ra
+    # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
+    # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
+
+    def get_object(self, queryset=None):
+        obj = self.request
+        return obj
+
+    def get_queryset(self):
+        getData = self.get_object()
+        idA = getData.GET['id']
+
+        queryset = Bids.objects.filter(auction_id=idA)
+        return queryset
+
+class HighestBidsViews(viewsets.ReadOnlyModelViewSet):
+    # queryset = Review.objects.all()  # mn ayy table badi jibon
+    serializer_class = BidsSerializer  # shu badu yesta3mel la ye2ra
+    # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
+    # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
+
+    def get_object(self, queryset=None):
+        obj = self.request
+        return obj
+
+    def get_queryset(self):
+        getData = self.get_object()
+        idA = getData.GET['id']
+
+        queryset = Bids.objects.filter(auction_id=idA).annotate(
+                    highest_bid=Max('auction_id__bids__amount')
+                    ).filter(
+                    amount=F('highest_bid')
+                    )
+        return queryset
+
+
+class AuctionAnimalViews(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = AuctionAnimalSerializer
+    # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
+    # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
+
+    def get_object(self, queryset=None):
+        obj = self.request
+        return obj
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        getData = self.get_object()
+        idA = getData.GET['id']
+
+        queryset = Auction.objects.filter(id=idA)
+
+        return queryset

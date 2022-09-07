@@ -6,6 +6,8 @@ from Auction.models import Auction, AuctionStatus
 from Animal.models import Animal, Family, AnimalClass
 from Operation.models import Operation
 
+from Auction.models import Bids
+
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,4 +61,42 @@ class AnimalSerializer2(serializers.ModelSerializer):
         fields = ('id', 'name', 'namear', 'birthdate', 'family', )
 
 ###############################################################
+
+class AnimalSerializer3(serializers.ModelSerializer):
+    class Meta:
+        model = Animal
+        fields = ('id', 'name', 'namear', 'birthdate', 'family',)
+        # fields = '__all__'
+        depth = 1
+
+class BidsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bids
+        fields = ('id', 'auction_id', 'biddatetime', 'amount', 'subscriber_id', 'win', 'created_at', 'updated_at',)
+        # fields = '__all__'
+        # depth = 1
+
+###############################################################
+class AnimalSerializer4(serializers.ModelSerializer):
+    class Meta:
+        model = Animal
+        fields = ('id', 'name', 'namear', 'birthdate')
+        # fields = '__all__'
+        depth = 1
+
+class OperationAnimalSerializer(serializers.ModelSerializer):
+    animal = AnimalSerializer4(many=False)
+    class Meta:
+        model = Operation
+        fields = ('id', 'animal', )
+        # fields = '__all__'
+        depth = 1
+
+class AuctionAnimalSerializer(serializers.ModelSerializer):
+    operation = OperationAnimalSerializer(many=False)
+    class Meta:
+        model = Auction
+        fields = ('id', 'operation', )
+        # fields = '__all__'
+        depth = 1
 

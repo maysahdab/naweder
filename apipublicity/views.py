@@ -36,23 +36,23 @@ class PublicityViews(viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class PublicityimagesViews(viewsets.ReadOnlyModelViewSet):
-    # queryset = Review.objects.all()  # mn ayy table badi jibon
-    serializer_class = ImagePublicitySerializer  # shu badu yesta3mel la ye2ra
-
-    # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
-    # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
-
-    def get_object(self, queryset=None):
-        obj = self.request
-        return obj
-
-    def get_queryset(self):
-        getData = self.get_object()
-        idA = getData.GET['id']
-
-        queryset = ImagePublicity.objects.filter(publicity_id=idA)  # (pk=self.kwargs['idA'])
-        return queryset
+# class PublicityimagesViews(viewsets.ReadOnlyModelViewSet):
+#     # queryset = Review.objects.all()  # mn ayy table badi jibon
+#     serializer_class = ImagePublicitySerializer  # shu badu yesta3mel la ye2ra
+#
+#     # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
+#     # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
+#
+#     def get_object(self, queryset=None):
+#         obj = self.request
+#         return obj
+#
+#     def get_queryset(self):
+#         getData = self.get_object()
+#         idA = getData.GET['id']
+#
+#         queryset = ImagePublicity.objects.filter(publicity_id=idA)  # (pk=self.kwargs['idA'])
+#         return queryset
 
 
 @api_view(['DELETE'])
@@ -99,7 +99,7 @@ def Publicity_add(request):
                                                       )
         return JsonResponse({'message': 'Complain is created successfully!'}, status=status.HTTP_201_CREATED)
     except:
-        return JsonResponse({'message': 'Error'}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'message': 'Error: da complain is not created'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['PUT'])

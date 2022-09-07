@@ -15,11 +15,13 @@ from Ecommerce.models import ReviewProduct
 #     rate = serializers.IntegerField()
 #     description = serializers.CharField()
 #     descriptionar = serializers.CharField()
+from Operation.models import ReviewOperation
 
-class ReviewProductSerializer(serializers.ModelSerializer):
+
+class ReviewOperationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ReviewProduct
-        fields = ('id', 'product_id', 'user_id', 'description', 'descriptionar')
+        model = ReviewOperation
+        fields = ('id', 'operation_id', 'user_id', 'rate', 'description', 'descriptionar')
         # fields = '__all__'
-        depth = 1
+        # depth = 1
 

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apireviewproduct',
     'apiauction',
     'apipublicity',
+    'apireviewoperation',
     'rest_framework',
 ]
 
