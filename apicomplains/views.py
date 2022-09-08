@@ -110,7 +110,7 @@ def Complain_update(request, pk):
     except:
         return JsonResponse({'message': 'The complain does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET'])
 def Complains_detail(request, pk):
     try:
         complains = Complains.objects.get(pk=pk)
@@ -122,27 +122,6 @@ def Complains_detail(request, pk):
     if request.method == 'GET':
         tutorial_serializer = ComplainsSerializer(complains)
         return JsonResponse(tutorial_serializer.data)
-
-
-    # elif request.method == 'PUT':
-    #     compl = Complains.objects.filter(id=pk).update(user_id=request.data['user'], description=request.data['description'])
-    #     # print(eval(request.data['ChangeImage']))
-    #
-    #     if eval(request.data['ChangeImage']):
-    #         ImageComplains.objects.filter(complains_id=pk).delete()
-    #         if request.data.getlist('images') != ['']:
-    #             for f in request.data.getlist('images'):
-    #                 fs = FileSystemStorage()
-    #                 filename = fs.save(f.name, f)
-    #                 print(f.name)
-    #                 ImageComplains.objects.create(complains_id=pk,
-    #                                               image=f.name,
-    #                                               created_at=datetime.today(),
-    #                                               updated_at=datetime.today()
-    #                                               )
-    #
-    #
-    #     return JsonResponse({'message': 'Complain is updated successfully!'}, status=status.HTTP_200_OK)
 
 
 class ImageComplainsViews(viewsets.ModelViewSet):

@@ -166,3 +166,25 @@ class AuctionAnimalViews(mixins.ListModelMixin, viewsets.GenericViewSet):
         queryset = Auction.objects.filter(id=idA)
 
         return queryset
+
+
+class getAnimalViews(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = AnimalSerializer2
+    # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
+    # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
+
+    def get_object(self, queryset=None):
+        obj = self.request
+        return obj
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        getData = self.get_object()
+        idA = getData.GET['id']
+
+        queryset = Animal.objects.filter(id=idA)
+
+        return queryset

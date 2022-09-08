@@ -11,6 +11,7 @@ from django.core.files.storage import FileSystemStorage
 from django.db import connection
 from datetime import datetime
 
+
 ################################################################
 
 @api_view(['DELETE'])
@@ -18,24 +19,23 @@ def ReviewProduct_delete(request, pk):
     try:
         reviewproduct = ReviewProduct.objects.get(pk=pk)
         reviewproduct.delete()
-        return JsonResponse({'message': 'The review of product was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({'message': 'The review of product was deleted successfully!'},
+                            status=status.HTTP_204_NO_CONTENT)
     except ReviewProduct.DoesNotExist:
         return JsonResponse({'message': 'The review of product does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
+
 @api_view(['POST'])
 def ReviewProduct_add(request):
-
-
     if request.method == 'POST':
-
-        reviewproduct = ReviewProduct.objects.create(product_id = request.data['product'],
+        reviewproduct = ReviewProduct.objects.create(product_id=request.data['product'],
                                                      user_id=request.data['user'],
-                                                     rate = request.data['rate'],
-                                                     description = request.data['description'],
+                                                     rate=request.data['rate'],
+                                                     description=request.data['description'],
                                                      descriptionar=request.data['descriptionar'],
-                                                     created_at = datetime.today(),
-                                                     updated_at = datetime.today()
-                                                    )
+                                                     created_at=datetime.today(),
+                                                     updated_at=datetime.today()
+                                                     )
 
         return JsonResponse({'message': 'Review Product is created successfully!'}, status=status.HTTP_201_CREATED)
 
@@ -43,19 +43,19 @@ def ReviewProduct_add(request):
 @api_view(['PUT'])
 def ReviewProduct_update(request, pk):
     try:
-        reviewproduct = ReviewProduct.objects.filter(id=pk).update(product_id = request.data['product'],
-                                                     user_id=request.data['user'],
-                                                     rate = request.data['rate'],
-                                                     description = request.data['description'],
-                                                     descriptionar=request.data['descriptionar'],
-                                                     created_at = datetime.today(),
-                                                     updated_at = datetime.today()
-                                                    )
-
+        reviewproduct = ReviewProduct.objects.filter(id=pk).update(product_id=request.data['product'],
+                                                                   user_id=request.data['user'],
+                                                                   rate=request.data['rate'],
+                                                                   description=request.data['description'],
+                                                                   descriptionar=request.data['descriptionar'],
+                                                                   created_at=datetime.today(),
+                                                                   updated_at=datetime.today()
+                                                                   )
 
         return JsonResponse({'message': 'The review of product is updated successfully!'}, status=status.HTTP_200_OK)
     except:
         return JsonResponse({'message': 'The review of product does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
 
 # @api_view(['GET'])
 # def ReviewProduct_detail(request, pk):
@@ -72,6 +72,7 @@ def ReviewProduct_update(request, pk):
 class ReviewProductViews(viewsets.ReadOnlyModelViewSet):
     # queryset = Review.objects.all()  # mn ayy table badi jibon
     serializer_class = ReviewProductSerializer  # shu badu yesta3mel la ye2ra
+
     # permission_classes = [IsAuthenticated]  # this will check if it is authenticated or not
     # authentication_classes = [JWTAuthentication]  # this will handel authentication automatically
 

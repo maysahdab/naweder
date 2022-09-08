@@ -76,11 +76,11 @@ class Product(models.Model):
     discount = models.DecimalField(max_digits=10, decimal_places=1)
     percentage = models.BooleanField(default=False)
     productcategory = models.ForeignKey(ProductCategory, on_delete=models.PROTECT, null=False)
-    tag = models.ManyToManyField('Tag', through='ProductTag')
+    tag = models.ManyToManyField('Tag', through='ProductTag', blank=True)
     productalternative = models.ManyToManyField('self', symmetrical=True,
-                                                  through='Alternative', related_name='alternative_product')
+                                                  through='Alternative', related_name='alternative_product', blank=True)
     productcomlementary = models.ManyToManyField('self', symmetrical=False,
-                                                  through='Complementary', related_name='complementary_product')
+                                                  through='Complementary', related_name='complementary_product', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)

@@ -10,11 +10,11 @@ router = routers.DefaultRouter()
 # router.register(r'complains-images', ImageComplainsViews, basename='complains_images')
 router.register(r'auction-all', AuctionEndTodayViews, basename='auction_all')
 router.register(r'animals', AnimalViews, basename='animals')
+router.register(r'get-animal', getAnimalViews, basename='get_animal_by_id')
 router.register(r'bids', BidsViews, basename='bids')
 router.register(r'highest-bids', HighestBidsViews, basename='highest_bids')
 router.register(r'auction-animal', AuctionAnimalViews, basename='auction_animal')
 
-# router.register(r'auction-info/<int:id>', AuctionByIdViews, basename='auction_info')
 router.register(r'auction-info', AuctionByIdViews, basename='auction_info')
 
 # specify URL Path for rest_framework

@@ -8,7 +8,7 @@ from Operation.models import Operation
 
 from Auction.models import Bids
 
-
+# auction serializer
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuctionStatus
@@ -40,7 +40,7 @@ class AuctionSerializer(serializers.ModelSerializer):
         fields = ('id', 'fromdate', 'todate', 'description', 'descriptionar', 'status', 'operation',)
 
 #############################################################
-
+# animal family
 
 class AnimalFamilySerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,7 +61,7 @@ class AnimalSerializer2(serializers.ModelSerializer):
         fields = ('id', 'name', 'namear', 'birthdate', 'family', )
 
 ###############################################################
-
+# bids
 class AnimalSerializer3(serializers.ModelSerializer):
     class Meta:
         model = Animal
@@ -77,10 +77,11 @@ class BidsSerializer(serializers.ModelSerializer):
         # depth = 1
 
 ###############################################################
+# auction ! animal
 class AnimalSerializer4(serializers.ModelSerializer):
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'namear', 'birthdate')
+        fields = ('id', 'animalclass_id', 'name', 'namear', 'birthdate', 'isactive')
         # fields = '__all__'
         depth = 1
 
